@@ -3,6 +3,10 @@ const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 const { indexRouter, reportsRouter } = require('./controllers')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use(cors())
 // don't show the log when it is test
