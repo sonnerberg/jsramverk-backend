@@ -1,0 +1,4 @@
+setup
+node_modules/
+*.sqlite
+.env
