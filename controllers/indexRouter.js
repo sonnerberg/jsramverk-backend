@@ -2,6 +2,7 @@ const indexRouter = require('express').Router()
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/texts.sqlite')
 const { body, validationResult } = require('express-validator')
+const bcrypt = require('bcryptjs')
 
 indexRouter.post(
   '/register',
@@ -18,7 +19,7 @@ indexRouter.post(
       .isIn(['12345'])
       .withMessage('Do not use a common password'),
   ],
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       const { param: title, msg: detail } = errors.errors[0]
@@ -33,10 +34,13 @@ indexRouter.post(
     }
     try {
       const { email, password } = req.body
+      const saltRounds = 10
+      const passwordHash = await bcrypt.hash(password, saltRounds)
+
       db.run(
         'INSERT INTO users (email, password) VALUES (?, ?)',
         email,
-        password,
+        passwordHash,
         (err) => {
           if (err) {
             // returnera error
