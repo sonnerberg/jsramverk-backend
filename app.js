@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
+const { indexRouter } = require('./controllers')
 
 app.use(cors())
 // don't show the log when it is test
@@ -10,7 +11,7 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined')) // 'combined' outputs the Apache style LOGs
 }
 
-app.get('/', (req, res) => res.send('hello world'))
+app.use('/', indexRouter)
 
 // Add routes for 404 and error handling
 // Catch 404 and forward to error handler
