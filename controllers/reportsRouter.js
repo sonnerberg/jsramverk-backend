@@ -24,15 +24,16 @@ reportsRouter.get('/week/:id', (req, res, next) => {
         flag: 'r',
       },
     )
-    const link = fs.readFileSync(
-      `./reports/kmom${id.padStart(2, '0')}link.md`,
-      {
+    let link = null
+    if (fs.existsSync(`./reports/kmom${id.padStart(2, '0')}link.md`)) {
+      link = fs.readFileSync(`./reports/kmom${id.padStart(2, '0')}link.md`, {
         encoding: 'utf-8',
         flag: 'r',
-      },
-    )
+      })
+    }
 
-    res.json({ markdown, link })
+    if (link) return res.json({ markdown, link })
+    return res.json({ markdown, link: 'http://github.com/sonnerberg' })
   } catch {
     next()
   }
