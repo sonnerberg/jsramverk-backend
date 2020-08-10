@@ -5,6 +5,41 @@ const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../utils/config')
+const fs = require('fs')
+
+const getTokenFrom = (req) => {
+  const authorization = req.get('Authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer')) {
+    return authorization.substring(7)
+  }
+  return null
+}
+
+indexRouter.post('/reports', (req, res, next) => {
+  const { kmomNumber, content, githubLink } = req.body
+  console.log(kmomNumber, content, githubLink)
+  // get the token from the request object
+  const token = getTokenFrom(req)
+  // verify the token
+  const decodedToken = jwt.verify(token, JWT_SECRET)
+  if (!token || !decodedToken.email) {
+    return res.status(401).json({ error: 'token missing or invalid' })
+  }
+  fs.writeFile(`./reports/kmom0${kmomNumber}.md`, content, (err) => {
+    if (err) next(err)
+  })
+  fs.writeFile(`./reports/kmom0${kmomNumber}link.md`, githubLink, (err) => {
+    if (err) next(err)
+  })
+  return res
+    .status(201)
+    .json({
+      data: `Your content is available at http://localhost:3333/reports/week/${kmomNumber}`,
+    })
+
+  // handle editing and adding content
+  // add files to the filesystem ('./reports/kmom0[\d].md' and './reports/kmom0[\d]link.md)
+})
 
 indexRouter.post('/login', (req, res, next) => {
   const { email, password } = req.body
@@ -135,8 +170,8 @@ indexRouter.post(
   },
 )
 
-indexRouter.get('/', (req, res) =>
-  res.json({
+indexRouter.get('/', (req, res) => {
+  return res.json({
     main_heading: 'This is JS-ramverk',
     paragraph0: {
       // eslint-disable-next-line quotes
@@ -225,7 +260,7 @@ indexRouter.get('/', (req, res) =>
     paragraph7: {
       text: 'I am looking forward to diving into more JavaScript frameworks.',
     },
-  }),
-)
+  })
+})
 
 module.exports = indexRouter
