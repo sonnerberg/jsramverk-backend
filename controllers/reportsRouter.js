@@ -1,14 +1,21 @@
 const fs = require('fs')
 const reportsRouter = require('express').Router()
+const { db } = require('./sqlite3')
 
 reportsRouter.get('/week', (req, res, next) => {
-  // read the files available using fs and return json with filenames
-  const files = fs.readdirSync('./reports', (err, files) => {
-    if (err) return next(err)
-    return files
+  db.all('SELECT kmom FROM texts', (err, rows) => {
+    if (err) {
+      return res.status(500).json({
+        errors: {
+          status: 500,
+          source: '/register',
+          title: 'Database error',
+          detail: err.message,
+        },
+      })
+    }
+    return res.json({ data: rows.map((row) => row.kmom) })
   })
-
-  res.json({ files })
 })
 
 reportsRouter.get('/week/:id', (req, res, next) => {

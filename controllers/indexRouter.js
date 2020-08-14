@@ -1,11 +1,10 @@
 const indexRouter = require('express').Router()
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('./db/texts.sqlite')
 const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../utils/config')
 const fs = require('fs')
+const { db } = require('./sqlite3')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('Authorization')
