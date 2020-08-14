@@ -30,10 +30,14 @@ indexRouter.post('/reports', (req, res, next) => {
     if (err) next(err)
   })
   db.run(
-    'INSERT INTO texts (kmom, text, link) VALUES (?, ?, ?)',
-    paddedKmom,
+    // https://www.sqlite.org/lang_UPSERT.html
+    `INSERT INTO texts (text, link, kmom) VALUES (?, ?, ?)
+      ON CONFLICT(kmom) DO UPDATE SET
+      text = (?), link = (?)
+      WHERE kmom = (?)`,
     content,
     githubLink,
+    paddedKmom,
     (err) => {
       if (err) {
         // returnera error
