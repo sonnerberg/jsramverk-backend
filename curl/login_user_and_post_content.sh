@@ -5,13 +5,11 @@ URL='http://localhost:3333/login'
 TOKEN=$(curl --silent \
 -H "Content-Type: application/json" \
 -d '{"email":"richard@email.com", "password":"hello"}' \
--X POST "$URL" | jq '.token' | tr -d '"')
-
-# echo "$TOKEN"
+-X POST "$URL" | jq '.data.token' | tr -d '"')
 
 curl --silent -i \
 -H "Accept: application/json" \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $TOKEN" \
--d '{"kmomNumber":"4", "content":"# hello from curl", "githubLink": "http://www.github.com/sonnerberg"}' \
+-d '{"kmomNumber":"50", "content":"# hello from curl", "githubLink": "http://www.github.com/sonnerberg"}' \
 -X POST "http://localhost:3333/reports"

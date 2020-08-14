@@ -17,28 +17,42 @@ const getTokenFrom = (req) => {
 
 indexRouter.post('/reports', (req, res, next) => {
   const { kmomNumber, content, githubLink } = req.body
+  const paddedKmom = `kmom${kmomNumber.padStart(2, '0')}`
   const token = getTokenFrom(req)
   const decodedToken = jwt.verify(token, JWT_SECRET)
   if (!token || !decodedToken.email) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
-  fs.writeFile(
-    `./reports/kmom${kmomNumber.padStart(2, '0')}.md`,
+  fs.writeFile(`./reports/${paddedKmom}.md`, content, (err) => {
+    if (err) next(err)
+  })
+  fs.writeFile(`./reports/${paddedKmom}link.md`, githubLink, (err) => {
+    if (err) next(err)
+  })
+  db.run(
+    'INSERT INTO texts (kmom, text, link) VALUES (?, ?, ?)',
+    paddedKmom,
     content,
-    (err) => {
-      if (err) next(err)
-    },
-  )
-  fs.writeFile(
-    `./reports/kmom${kmomNumber.padStart(2, '0')}link.md`,
     githubLink,
     (err) => {
-      if (err) next(err)
+      if (err) {
+        // returnera error
+        return res.status(500).json({
+          errors: {
+            status: 500,
+            source: '/register',
+            title: 'Database error',
+            detail: err.message,
+          },
+        })
+      }
+      return res.status(201).json({
+        data: `Your content is available at http://localhost:3333/reports/week/${kmomNumber}`,
+      })
+
+      // returnera korrekt svar
     },
   )
-  return res.status(201).json({
-    data: `Your content is available at http://localhost:3333/reports/week/${kmomNumber}`,
-  })
 })
 
 indexRouter.post('/login', (req, res, next) => {
@@ -81,12 +95,14 @@ indexRouter.post('/login', (req, res, next) => {
           const secret = JWT_SECRET
           const token = jwt.sign(payload, secret, { expiresIn: '1h' })
           return res.status(200).json({
-            // status: 200,
-            // source: '/login',
-            // title: `${user.email} found`,
-            // detail: `password correct: ${passwordCorrect}`,
-            token,
-            email,
+            data: {
+              // status: 200,
+              // source: '/login',
+              // title: `${user.email} found`,
+              // detail: `password correct: ${passwordCorrect}`,
+              token,
+              email,
+            },
           })
           // returnera korrekt svar
         }
@@ -155,7 +171,7 @@ indexRouter.post(
             })
           }
 
-          res.status(201).json({
+          return res.status(201).json({
             status: 201,
             source: '/register',
             title: 'added user',

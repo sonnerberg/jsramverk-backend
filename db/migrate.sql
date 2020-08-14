@@ -3,3 +3,11 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(60) NOT NULL,
     UNIQUE(email)
 );
+
+CREATE TABLE IF NOT EXISTS texts (
+    kmom VARCHAR(10) NOT NULL,
+    text VARCHAR NOT NULL,
+    link VARCHAR(30) NOT NULL,
+    UNIQUE(kmom),
+    CHECK(like('%github.com%', link))
+);
