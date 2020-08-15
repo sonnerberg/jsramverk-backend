@@ -31,9 +31,13 @@ indexRouter.post('/reports', (req, res, next) => {
   db.run(
     // https://www.sqlite.org/lang_UPSERT.html
     `INSERT INTO texts (text, link, kmom) VALUES (?, ?, ?)
-      ON CONFLICT(kmom) DO UPDATE SET
+      ON CONFLICT(kmom)
+      DO UPDATE SET
       text = (?), link = (?)
       WHERE kmom = (?)`,
+    content,
+    githubLink,
+    paddedKmom,
     content,
     githubLink,
     paddedKmom,

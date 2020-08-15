@@ -1,4 +1,3 @@
-const fs = require('fs')
 const reportsRouter = require('express').Router()
 const { db } = require('./sqlite3')
 
@@ -18,7 +17,7 @@ reportsRouter.get('/week', (req, res) => {
   })
 })
 
-reportsRouter.get('/week/:id', (req, res) => {
+reportsRouter.get('/week/:id', (req, res, next) => {
   const {
     params: { id },
   } = req
@@ -26,7 +25,6 @@ reportsRouter.get('/week/:id', (req, res) => {
   const sql = 'SELECT * FROM texts WHERE kmom = (?)'
 
   db.get(sql, paddedKmom, (err, rows) => {
-    const { text: markdown, link } = rows
     if (err) {
       return res.status(500).json({
         errors: {
@@ -37,7 +35,12 @@ reportsRouter.get('/week/:id', (req, res) => {
         },
       })
     }
-    return res.json({ markdown, link })
+    try {
+      const { text: markdown, link } = rows
+      return res.json({ markdown, link })
+    } catch (err) {
+      next(err)
+    }
   })
 })
 
