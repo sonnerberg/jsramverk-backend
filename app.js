@@ -2,7 +2,12 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
-const { indexRouter, reportsRouter } = require('./routes/')
+const {
+  indexRouter,
+  reportsRouter,
+  loginRouter,
+  registerRouter,
+} = require('./routes/')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json()) // for parsing application/json
@@ -16,7 +21,9 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/', indexRouter)
-app.use('/reports/', reportsRouter)
+app.use('/reports', reportsRouter)
+app.use('/login', loginRouter)
+app.use('/register', registerRouter)
 
 // Add routes for 404 and error handling
 // Catch 404 and forward to error handler
