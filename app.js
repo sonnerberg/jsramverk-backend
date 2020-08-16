@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
-const { indexRouter, reportsRouter } = require('./controllers')
+const { indexRouter, reportsRouter } = require('./routes/')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json()) // for parsing application/json
