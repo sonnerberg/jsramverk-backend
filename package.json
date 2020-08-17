@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --reporter=html --reporter=text mocha 'test/**/*.js'",
     "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
-    "startpm2": "/lib/node_modules/pm2/bin/pm2 start index.js --name me-api"
+    "startpm2": "/lib/node_modules/pm2/bin/pm2 start index.js --name me-api",
+    "pretest": "bash db/reset_test_db.bash"
   },
   "keywords": [],
   "author": "",
@@ -25,8 +26,13 @@
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^7.6.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "prettier": "^2.0.5"
   },
   "repository": {

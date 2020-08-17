@@ -4,7 +4,8 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  extends: 'eslint:recommended',
+  plugins: ['mocha'],
+  extends: ['eslint:recommended', 'plugin:mocha/recommended'],
   parserOptions: {
     ecmaVersion: 11,
   },

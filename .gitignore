@@ -2,3 +2,5 @@ setup
 node_modules/
 *.sqlite
 .env
+coverage/*
+.nyc_output/*
