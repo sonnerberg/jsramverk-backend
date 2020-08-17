@@ -21,7 +21,7 @@ exports.me = (req, res) => {
     paragraph2: {
       first_part: {
         text:
-          'I have been studying web development remotely for a few years now. I actually did my first attempt in 2014, trying to complete the introductory Python course at ',
+          'I have been studying web development remotely for a few years now, both part time and full time while working full time. I started studying remotely in 2014, starting out with the introductory Python course at ',
         link: {
           text: 'Blekinge Tekniska Högskola',
           url: 'https://www.bth.se',
@@ -29,7 +29,7 @@ exports.me = (req, res) => {
       },
       second_part: {
         text:
-          '(BTH). That time I did not finish the course but in 2018 I came back in almost full force and gave studying another shot.',
+          '(BTH). I have since studied a few MOOCS at Coursera and EDX while also finishing more than half of the curriculum at FreeCodeCamp. I also did a term at EC-utbildning (frontend developer) in Helsingborg while working part time for a short while. I decided to continue with remote studies when I got full time employment shortly after starting at EC.',
       },
     },
     paragraph3: {
