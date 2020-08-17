@@ -27,5 +27,13 @@
     "eslint": "^7.6.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonnerberg/jsramverk-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonnerberg/jsramverk-backend/issues"
+  },
+  "homepage": "https://github.com/sonnerberg/jsramverk-backend#readme"
 }
