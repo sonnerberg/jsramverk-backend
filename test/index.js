@@ -311,19 +311,19 @@ describe('Reports', function () {
     })
   })
 
-  describe('GET /reports/setup.svg', function () {
-    it('SVG retrieved', function (done) {
-      chai
-        .request(server)
-        .get('/reports/setup.svg')
-        .end((err, res) => {
-          res.should.have.status(200)
-          assert.equal(res.header['content-type'], 'image/svg+xml')
-
-          done()
-        })
-    })
-  })
+  //  describe('GET /reports/setup.svg', function () {
+  //    it('SVG retrieved', function (done) {
+  //      chai
+  //        .request(server)
+  //        .get('/reports/setup.svg')
+  //        .end((err, res) => {
+  //          res.should.have.status(200)
+  //          assert.equal(res.header['content-type'], 'image/svg+xml')
+  //
+  //          done()
+  //        })
+  //    })
+  //  })
 
   describe('GET non existent page', function () {
     it('404 for page that does not exist', function (done) {
