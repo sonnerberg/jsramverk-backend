@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha 'test/**/*.js'",
+    "testpretty": "nyc --reporter=html --reporter=text mocha 'test/**/*.js'",
+    "test": "mocha 'test/**/*.js'",
     "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
