@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const { db } = require('../controllers/database')
 const { JWT_SECRET } = require('../utils/config')
+const path = require('path')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('Authorization')
@@ -62,12 +63,20 @@ exports.createKmom = (req, res, next) => {
   if (!token || !decodedToken.email) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
-  fs.writeFile(`./reports/${paddedKmom}.md`, content, (err) => {
-    if (err) next(err)
-  })
-  fs.writeFile(`./reports/${paddedKmom}link.md`, githubLink, (err) => {
-    if (err) next(err)
-  })
+  fs.writeFile(
+    path.join(__dirname, `../reports/${paddedKmom}.md`),
+    content,
+    (err) => {
+      if (err) next(err)
+    },
+  )
+  fs.writeFile(
+    path.join(__dirname, `../reports/${paddedKmom}link.md`),
+    githubLink,
+    (err) => {
+      if (err) next(err)
+    },
+  )
   db.run(
     // https://www.sqlite.org/lang_UPSERT.html
     `INSERT INTO texts (text, link, kmom) VALUES (?, ?, ?)
