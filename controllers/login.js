@@ -5,6 +5,7 @@ const { db } = require('../controllers/database')
 
 exports.login = (req, res, next) => {
   const { email, password } = req.body
+
   try {
     db.get(
       'SELECT email, password as passwordHash FROM users WHERE email = ?',
@@ -42,6 +43,7 @@ exports.login = (req, res, next) => {
           const payload = { email }
           const secret = JWT_SECRET
           const token = jwt.sign(payload, secret, { expiresIn: '1h' })
+
           return res.status(200).json({
             data: {
               // status: 200,

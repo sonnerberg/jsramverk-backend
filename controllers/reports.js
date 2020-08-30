@@ -6,6 +6,7 @@ const path = require('path')
 
 const getTokenFrom = (req) => {
   const authorization = req.get('Authorization')
+
   if (authorization && authorization.toLowerCase().startsWith('bearer')) {
     return authorization.substring(7)
   }
@@ -32,6 +33,7 @@ exports.getKmom = (req, res, next) => {
     }
     try {
       const { text: markdown, link } = rows
+
       return res.json({ markdown, link })
     } catch (err) {
       next(err)
@@ -60,6 +62,7 @@ exports.createKmom = (req, res, next) => {
   const paddedKmom = `kmom${kmomNumber.padStart(2, '0')}`
   const token = getTokenFrom(req)
   const decodedToken = jwt.verify(token, JWT_SECRET)
+
   if (!token || !decodedToken.email) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
@@ -67,14 +70,14 @@ exports.createKmom = (req, res, next) => {
     path.join(__dirname, `../reports/${paddedKmom}.md`),
     content,
     (err) => {
-      if (err) next(err)
+      if (err) {next(err)}
     },
   )
   fs.writeFile(
     path.join(__dirname, `../reports/${paddedKmom}link.md`),
     githubLink,
     (err) => {
-      if (err) next(err)
+      if (err) {next(err)}
     },
   )
   db.run(
