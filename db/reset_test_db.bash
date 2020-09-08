@@ -15,5 +15,5 @@ for index in ${!KMOMFILES[*]}; do
     KMOM="${KMOMFILES[$index]//\.md/''}"
     CONTENT=$(< ./reports/"${KMOMFILES[$index]}")
     GITHUBLINK=$(< ./reports/"${KMOMLINKFILES[$index]}")
-    sqlite3 ./db/test.sqlite "INSERT INTO texts VALUES ('$KMOM', '$CONTENT', '$GITHUBLINK')"
+    sqlite3 ./db/test.sqlite "INSERT INTO texts VALUES (\"$KMOM\", \"$CONTENT\", \"$GITHUBLINK\")"
 done
