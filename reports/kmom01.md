@@ -30,4 +30,10 @@ Open your browser and point to the url:
 firefox localhost:3000
 ```
 
-![Setup video available inside ./src/](../setup.svg)
+![Setup video available inside ./src/ on Github](../setup.svg)
+
+## TODO:
+- [ ] Validate input fields with `yup`
+- [ ] Use Formik for all inputs
+- [ ] Change page title when going to different "pages"
+- [ ] Get markdown styles from [GitHub - sindresorhus/github-markdown-css: The minimal amount of CSS to replicate the GitHub Markdown style](https://github.com/sindresorhus/github-markdown-css)
