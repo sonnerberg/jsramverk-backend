@@ -13,10 +13,7 @@ cd jsramverk-backend
 npm i 
 ```
 ```bash
-cd db
-```
-```bash
-./reset_db.bash
+npm run resetdb
 ```
 ```bash
 npm start
