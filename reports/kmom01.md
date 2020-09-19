@@ -1,5 +1,7 @@
 # Installation instructions
 
+[![Build Status](https://travis-ci.org/sonnerberg/jsramverk-frontend.svg?branch=master)](https://travis-ci.org/sonnerberg/jsramverk-frontend)
+
 Start by cloning the repository from Github:
 
 ```bash
