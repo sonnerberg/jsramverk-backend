@@ -12,7 +12,7 @@
     "startpm2": "/lib/node_modules/pm2/bin/pm2 start index.js --name me-api",
     "pretest": "bash db/reset_test_db.bash",
     "resetdb": "bash db/npm_reset_db.bash",
-    "deploy": "ssh digitalocean git -C /home/deploy/git/jsramverk-backend pull && ssh digitalocean npm run resetdb --prefix /home/deploy/git/jsramverk-backend"
+    "deploy": "ssh digitalocean git -C /home/deploy/git/jsramverk-backend pull && ssh digitalocean npm run resetdb --prefix /home/deploy/git/jsramverk-backend && ssh digitalocean sudo systemctl restart me-api.service"
   },
   "keywords": [],
   "author": "",
