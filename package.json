@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
-    "test:jest": "npm run pretest && NODE_ENV=test jest --verbose --runInBand",
+    "test:mocha": "NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
+    "test": "npm run pretest && NODE_ENV=test jest --verbose --runInBand",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
