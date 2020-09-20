@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:mocha": "npm run pretest && NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
+    "test:mocha": "NODE_ENV=test npm run pretest && NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
@@ -12,7 +12,8 @@
     "startpm2": "/lib/node_modules/pm2/bin/pm2 start index.js --name me-api",
     "pretest": "bash db/reset_test_db.bash",
     "resetdb": "bash db/npm_reset_db.bash",
-    "deploy": "ssh digitalocean git -C /home/deploy/git/jsramverk-backend pull && ssh digitalocean npm run resetdb --prefix /home/deploy/git/jsramverk-backend && ssh digitalocean sudo systemctl restart me-api.service"
+    "deploy": "ssh digitalocean git -C /home/deploy/git/jsramverk-backend pull && ssh digitalocean npm run resetdb --prefix /home/deploy/git/jsramverk-backend && ssh digitalocean sudo systemctl restart me-api.service",
+    "start:test": "NODE_ENV=test node index.js"
   },
   "keywords": [],
   "author": "",
