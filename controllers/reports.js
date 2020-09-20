@@ -72,20 +72,22 @@ exports.createKmom = (req, res, next) => {
           },
         })
       }
-      fs.writeFile(
-        path.join(__dirname, `../reports/${paddedKmom}.md`),
-        content,
-        (err) => {
-          if (err) next(err)
-        },
-      )
-      fs.writeFile(
-        path.join(__dirname, `../reports/${paddedKmom}link.md`),
-        githubLink,
-        (err) => {
-          if (err) next(err)
-        },
-      )
+      if (process.env.NODE_ENV !== 'test') {
+        fs.writeFile(
+          path.join(__dirname, `../reports/${paddedKmom}.md`),
+          content,
+          (err) => {
+            if (err) next(err)
+          },
+        )
+        fs.writeFile(
+          path.join(__dirname, `../reports/${paddedKmom}link.md`),
+          githubLink,
+          (err) => {
+            if (err) next(err)
+          },
+        )
+      }
       return res.status(201).json({
         data: `Your content is available at http://localhost:3333/reports/week/${kmomNumber}`,
       })

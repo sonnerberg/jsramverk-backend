@@ -5,25 +5,12 @@ const chaiHttp = require('chai-http')
 const server = require('../index')
 const assert = require('assert')
 const { expect } = require('chai')
-const fs = require('fs')
-const path = require('path')
 
 chai.should()
 
 chai.use(chaiHttp)
 
 const kmomNumber = '99'
-
-beforeEach(() => {
-  const kmom = path.join(__dirname, `../reports/kmom${kmomNumber}.md`)
-  const kmomLink = path.join(__dirname, `../reports/kmom${kmomNumber}link.md`)
-  try {
-    fs.unlinkSync(kmom)
-    fs.unlinkSync(kmomLink)
-  } catch {
-    return
-  }
-})
 
 describe('Register twice', function () {
   describe('Register user', function () {

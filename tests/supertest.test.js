@@ -1,26 +1,9 @@
 const supertest = require('supertest')
 const server = require('../index')
-const fs = require('fs')
-const path = require('path')
 
 const api = supertest(server)
 const kmomNumber = '99'
 const kmomNumber2 = '98'
-
-beforeEach(() => {
-  const kmom = path.join(__dirname, `../reports/kmom${kmomNumber}.md`)
-  const kmomLink = path.join(__dirname, `../reports/kmom${kmomNumber}link.md`)
-  const kmom2 = path.join(__dirname, `../reports/kmom${kmomNumber2}.md`)
-  const kmomLink2 = path.join(__dirname, `../reports/kmom${kmomNumber2}link.md`)
-  try {
-    fs.unlinkSync(kmom)
-    fs.unlinkSync(kmomLink)
-    fs.unlinkSync(kmom2)
-    fs.unlinkSync(kmomLink2)
-  } catch {
-    return
-  }
-})
 
 describe('when there initially is some content', () => {
   test('index returns JSON', async () => {
