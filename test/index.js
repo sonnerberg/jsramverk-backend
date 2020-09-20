@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 process.env.NODE_ENV = 'test'
 
 const chai = require('chai')
@@ -7,10 +5,25 @@ const chaiHttp = require('chai-http')
 const server = require('../index')
 const assert = require('assert')
 const { expect } = require('chai')
+const fs = require('fs')
+const path = require('path')
 
 chai.should()
 
 chai.use(chaiHttp)
+
+const kmomNumber = '99'
+
+beforeEach(() => {
+  const kmom = path.join(__dirname, `../reports/kmom${kmomNumber}.md`)
+  const kmomLink = path.join(__dirname, `../reports/kmom${kmomNumber}link.md`)
+  try {
+    fs.unlinkSync(kmom)
+    fs.unlinkSync(kmomLink)
+  } catch {
+    return
+  }
+})
 
 describe('Register twice', function () {
   describe('Register user', function () {
@@ -42,7 +55,7 @@ describe('Register twice', function () {
           res.should.have.status(500)
           res.body.should.be.an('object')
           res.body.errors.should.be.an('object')
-          assert.equal(500, res.body.errors.status)
+          assert.strictEqual(500, res.body.errors.status)
 
           done()
         })
@@ -116,15 +129,15 @@ describe('Register and Login', function () {
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json')
         .send({
-          kmomNumber: '8',
+          kmomNumber,
           content: '# 123456789',
           githubLink: 'www.github.com/sonnerberg',
         })
         .end((err, res) => {
           res.should.have.status(201)
-          assert.equal(
+          assert.strictEqual(
             res.body.data,
-            'Your content is available at http://localhost:3333/reports/week/8',
+            `Your content is available at http://localhost:3333/reports/week/${kmomNumber}`,
           )
 
           done()
@@ -147,7 +160,7 @@ describe('Register and Login', function () {
         })
         .end((err, res) => {
           res.should.have.status(500)
-          assert.equal(res.body.errors[0].title, 'invalid signature')
+          assert.strictEqual(res.body.errors[0].title, 'invalid signature')
 
           done()
         })
@@ -168,7 +181,7 @@ describe('Register and Login', function () {
         })
         .end((err, res) => {
           res.should.have.status(500)
-          assert.equal(res.body.errors[0].title, 'jwt must be provided')
+          assert.strictEqual(res.body.errors[0].title, 'jwt must be provided')
 
           done()
         })
@@ -207,7 +220,7 @@ describe('Login without registered user', function () {
           res.should.have.status(401)
           res.body.should.be.an('object')
           res.body.errors.should.be.an('object')
-          assert.equal(401, res.body.errors.status)
+          assert.strictEqual(401, res.body.errors.status)
 
           done()
         })
@@ -318,7 +331,7 @@ describe('Reports', function () {
   //        .get('/reports/setup.svg')
   //        .end((err, res) => {
   //          res.should.have.status(200)
-  //          assert.equal(res.header['content-type'], 'image/svg+xml')
+  //          assert.strictEqual(res.header['content-type'], 'image/svg+xml')
   //
   //          done()
   //        })
