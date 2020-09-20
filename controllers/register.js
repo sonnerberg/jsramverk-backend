@@ -17,40 +17,36 @@ exports.register = async (req, res, next) => {
       },
     })
   }
-  try {
-    const { email, password } = req.body
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(password, saltRounds)
+  const { email, password } = req.body
+  const saltRounds = 10
+  const passwordHash = await bcrypt.hash(password, saltRounds)
 
-    db.run(
-      'INSERT INTO users (email, password) VALUES (?, ?)',
-      email,
-      passwordHash,
-      (err) => {
-        if (err) {
-          // returnera error
-          return res.status(500).json({
-            errors: {
-              status: 500,
-              source: '/register',
-              title: 'Database error',
-              detail: err.message,
-            },
-          })
-        }
-
-        return res.status(201).json({
-          status: 201,
-          source: '/register',
-          title: 'added user',
-          detail: `${email} added`,
+  db.run(
+    'INSERT INTO users (email, password) VALUES (?, ?)',
+    email,
+    passwordHash,
+    (err) => {
+      if (err) {
+        // returnera error
+        return res.status(500).json({
+          errors: {
+            status: 500,
+            source: '/register',
+            title: 'Database error',
+            detail: err.message,
+          },
         })
-        // returnera korrekt svar
-      },
-    )
-  } catch (err) {
-    next(err)
-  }
+      }
+
+      return res.status(201).json({
+        status: 201,
+        source: '/register',
+        title: 'added user',
+        detail: `${email} added`,
+      })
+      // returnera korrekt svar
+    },
+  )
 }
 
 exports.validation = [
