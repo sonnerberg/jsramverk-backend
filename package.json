@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:mocha": "NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
+    "test:mocha": "npm run pretest && NODE_ENV=test nyc --reporter=html --reporter=text mocha 'test/**/*.js' --timeout 10000",
     "test": "NODE_ENV=test jest --verbose --runInBand",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
