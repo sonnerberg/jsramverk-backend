@@ -3,9 +3,9 @@ module.exports = {
     commonjs: true,
     es2020: true,
     node: true,
+    jest: true,
   },
-  plugins: ['mocha'],
-  extends: ['eslint:recommended', 'plugin:mocha/recommended'],
+  extends: ['eslint:recommended'],
   parserOptions: {
     ecmaVersion: 11,
   },
