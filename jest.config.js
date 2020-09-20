@@ -12,5 +12,5 @@ module.exports = {
   //   '!.eslintrc.js',
   //   '!**/jest.config.js',
   // ],
-  coverageReporters: ['json', 'lcov', 'text', 'html', 'xml'],
+  coverageReporters: ['json', 'lcov', 'text', 'html', 'clover'],
 }
