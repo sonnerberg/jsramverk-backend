@@ -46,4 +46,4 @@ npm start
 
 - [ ] Remove validation with express-validate and use `joi` instead.
 - [ ] Add GraphQL
-- [ ] Add git hook to run npm install if `package.json` has been touched
+- [x] ~~Add git hook to run npm install if `package.json` has been touched~~
