@@ -1,7 +1,9 @@
 # Installation instructions
 
 [![Build Status](https://travis-ci.org/sonnerberg/jsramverk-frontend.svg?branch=master)](https://travis-ci.org/sonnerberg/jsramverk-frontend)
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sonnerberg/jsramverk-frontend/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sonnerberg/jsramverk-frontend/?branch=master)
+
 [![Code Coverage](https://scrutinizer-ci.com/g/sonnerberg/jsramverk-frontend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sonnerberg/jsramverk-frontend/?branch=master)
 
 Start by cloning the repository from Github:
