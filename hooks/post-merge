@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
-
-exec >> log/hooks-out.log 2&>1
+exec >> log/hooks-out.log 2>&1
 
 TIME=$(date '+%Y-%m-%d %H:%M')
 
