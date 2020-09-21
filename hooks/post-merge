@@ -3,7 +3,7 @@
 
 exec >> log/hooks-out.log 2&1
 
-TIME=$(date +%Y-%m-%d %h-%m)
+TIME=$(date +%Y-%m-%d %H-%m)
 
 if git diff-tree --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet 'package.json'; then
     echo "$TIME: Running npm install because package.json changed"
