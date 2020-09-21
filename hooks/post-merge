@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+exec >> log/hooks-out.log 2&1
+
+TIME=$(date +%Y-%m-%d %h-%m)
+
+if git diff-tree --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet 'package.json'; then
+    echo "$TIME: Running npm install because package.json changed"
+    npm install > dev/null
+else
+    echo "$TIME: No changes in package.json found"
+fi
