@@ -14,7 +14,8 @@
     "resetdb": "bash db/npm_reset_db.bash",
     "deploy": "ssh digitalocean git -C /home/deploy/git/jsramverk-backend pull && ssh digitalocean npm run resetdb --prefix /home/deploy/git/jsramverk-backend && ssh digitalocean sudo systemctl restart me-api.service",
     "start:test": "NODE_ENV=test node index.js",
-    "deploy:all": "npm run deploy && npm run deploy --prefix ../jsramverk-frontend"
+    "deploy:all": "npm run deploy && npm run deploy --prefix ../jsramverk-frontend",
+    "start:pm2": "pm2 start npm --name 'backend me app' -- start --env development --watch"
   },
   "keywords": [],
   "author": "",
